@@ -9,7 +9,10 @@
    width = "1600px"
    height = "1600px"
    viewBox="-153 -46 652 652"
-   style="enable-background:new -153 -46 652 652;" ><defs
+   style="enable-background:new -153 -46 652 652;"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
    id="defs1" />
 <style
    type="text/css"
