@@ -35,7 +35,7 @@ export const Banner = () => {
 
         if (!isDeleting && updatedText === fullText) {
             setIsDeleting(true);
-            setIndex(prevIndex => prevIndex - 1);
+            setIndex(i => i - 1);
             setDelta(period);
         } else if (isDeleting && updatedText === '') {
             if (loopNum === toRotate.length - 1) {
