@@ -51,9 +51,7 @@ export const TempNavBar = () => {
               <a href="https://x.com/vermray"><img src = {navIcon2} alt="" /></a>
               <a href="https://github.com/rverma6"><img src = {navIcon3} alt="" /></a>
             </div>
-            <button className="vvd" onClick={() => console.log('connect')}>
-              <span> Let's Connect </span>
-            </button>
+        
           </span>
         </Navbar.Collapse>
       </Container>

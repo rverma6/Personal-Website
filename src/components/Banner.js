@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { Container, Row, Col } from 'react-bootstrap';
 import 'animate.css';
@@ -8,35 +8,15 @@ export const Banner = () => {
     const [loopNum, setLoopNum] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
     const [text, setText] = useState('');
-    const [delta, setDelta] = useState(100);
+    const [delta, setDelta] = useState(65);
     const [index, setIndex] = useState(1);
     const [isStopped, setIsStopped] = useState(false);
     const [hasAnimated, setHasAnimated] = useState(false); // Track if the animation has already played
     const toRotate = ["Full Stack Developer", "Venture Studio Partner", "Sports Writer"];
     const period = 3000;
 
-    useEffect(() => {
-        let ticker = setInterval(() => {
-            tick();
-        }, delta);
-
-        return () => { clearInterval(ticker) };
-    }, [text]);
-
-    useEffect(() => {
-        if (hasAnimated) return; // Exit if already animated
-
-        const handleScroll = () => {
-            if (window.scrollY > 0 && !hasAnimated) {
-                setHasAnimated(true);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [hasAnimated]);
-
-    const tick = () => {
+    
+    const tick = useCallback(() => {
         if (isStopped) {
             return;
         }
@@ -48,9 +28,9 @@ export const Banner = () => {
         setText(updatedText);
 
         if (isDeleting) {
-            setDelta(150);
-        } else {
             setDelta(100);
+        } else {
+            setDelta(65);
         }
 
         if (!isDeleting && updatedText === fullText) {
@@ -67,9 +47,32 @@ export const Banner = () => {
                 setDelta(100);
             }
         } else {
-            setIndex(prevIndex => prevIndex + 1);
+            setIndex(i => i + 1);
         }
-    };
+
+        
+    }, [isStopped, loopNum, isDeleting, text, toRotate, period]);
+
+    useEffect(() => {
+      let ticker = setInterval(() => {
+          tick();
+      }, delta);
+
+      return () => { clearInterval(ticker) };
+  }, [tick, delta]);
+
+    useEffect(() => {
+        if (hasAnimated) return; // Exit if already animated
+
+        const handleScroll = () => {
+            if (window.scrollY > 0 && !hasAnimated) {
+                setHasAnimated(true);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [hasAnimated]);
 
     return (
         <section className="banner" id="home">

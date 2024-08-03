@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { Container, Row, Col } from 'react-bootstrap';
 import 'animate.css';
@@ -9,21 +9,13 @@ export const Banner = () => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [text, setText] = useState('');
     const [delta, setDelta] = useState(100);
-    const [index, setIndex] = useState(1);
+    const [setIndex] = useState(1);
     const [isStopped, setIsStopped] = useState(false); // New state to track if the rotation should stop
     const toRotate = ["Full Stack Developer", "Venture Studio Partner", "Sports Writer"];
     const [hasAnimated, setHasAnimated] = useState(false); // Track if the animation has already played
     const period = 3000;
 
-    useEffect(() => {
-        let ticker = setInterval(() => {
-            tick();
-        }, delta);
-
-        return () => { clearInterval(ticker) };
-    }, [text])
-
-    const tick = () => {
+    const tick = useCallback(() => {
         if (isStopped) { // Check if the rotation should stop
             return;
         }
@@ -56,7 +48,15 @@ export const Banner = () => {
         } else {
             setIndex(prevIndex => prevIndex + 1);
         }
-    }
+    }, [isDeleting, isStopped, loopNum, text.length, toRotate]);
+
+    useEffect(() => {
+        let ticker = setInterval(() => {
+            tick();
+        }, delta);
+
+        return () => { clearInterval(ticker) };
+    }, [delta, tick])
 
     return (
         <section className="banner" id="home">
