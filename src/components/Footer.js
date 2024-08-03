@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap"
 import { MailchimpForm } from "./MailchimpForm";
-import logo from "../assets/img/logo.svg";
 import RVL from "../assets/img/RVL.svg"
 import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon2.svg';
@@ -23,7 +22,7 @@ export const Footer = () => {
                         <div className="social-icon">
                             <a href=""><img src={navIcon1} /></a>
                             <a href=""><img src={navIcon2} /></a>
-                            <a href=""><img src={navIcon3} /></a>
+                            <a href="https://github.com/rverma6"><img src={navIcon3} /></a>
                         </div>
                     </Col>
                 </Row>
