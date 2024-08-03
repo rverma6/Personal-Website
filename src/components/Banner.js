@@ -9,7 +9,6 @@ export const Banner = () => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [text, setText] = useState('');
     const [delta, setDelta] = useState(65);
-    const [index, setIndex] = useState(1);
     const [isStopped, setIsStopped] = useState(false);
     const [hasAnimated, setHasAnimated] = useState(false); // Track if the animation has already played
     const toRotate = ["Full Stack Developer", "Venture Studio Partner", "Sports Writer"];
@@ -35,7 +34,6 @@ export const Banner = () => {
 
         if (!isDeleting && updatedText === fullText) {
             setIsDeleting(true);
-            setIndex(i => i - 1);
             setDelta(period);
         } else if (isDeleting && updatedText === '') {
             if (loopNum === toRotate.length - 1) {
@@ -43,13 +41,9 @@ export const Banner = () => {
             } else {
                 setIsDeleting(false);
                 setLoopNum(loopNum + 1);
-                setIndex(1);
                 setDelta(100);
             }
-        } else {
-            setIndex(i => i + 1);
         }
-
         
     }, [isStopped, loopNum, isDeleting, text, toRotate, period]);
 
